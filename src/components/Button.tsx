@@ -19,8 +19,4 @@ const  Button:FC<ButtonPropsType> = ({text,test,outline,children,onClick,classNa
     )
 }
 
-
-
-
-
 export default Button
