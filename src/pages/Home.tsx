@@ -1,19 +1,19 @@
 import React, { FC } from 'react';
 import {Categories, SortPopup,PizzaBlock} from "../components";
 import {v1} from "uuid";
+import {HomeItemsType} from "../App";
 
 
-export type HomeItemsType = {
-    id:number
-    imageUrl:string
-    name:string
-    types:number[]
-    sizes:number[]
-    price:number
-    category:number
-    rating:number
-
-}
+// export type HomeItemsType = {
+//     id:number
+//     imageUrl:string
+//     name:string
+//     types:number[]
+//     sizes:number[]
+//     price:number
+//     category:number
+//     rating:number
+// }
 type Props = {
     items : HomeItemsType[]
 };
@@ -41,7 +41,7 @@ type Props = {
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
-                {items.map(i =>  <PizzaBlock
+                {items && items.map(i =>  <PizzaBlock
                     key={i.id}
                     {...i}
                     // rating={i.rating}
