@@ -2,7 +2,10 @@
 import React from 'react';
 import {FC, useEffect, useRef, useState} from "react";
 
-type sortItems = 'Popular' |'Price' | 'Alphabet'
+type sortItems = {
+    name:string
+    type?:string
+}
 type SortPopupProps = {
     items:sortItems[]
 };
@@ -26,10 +29,10 @@ const SortPopup :FC<SortPopupProps> = ({items}) => {
         setVisiblePopup(false)
     }
     const mapPopupItems = items.map((i,index) => {
-       return  <li key={index + i}
+       return  <li key={index}
             className={activeItem === index ? 'active' : ''}
             onClick={() => onSelectPopupItem(index)}
-        >{i}</li>
+        >{i.name}</li>
     })
 
     return (
@@ -43,7 +46,7 @@ const SortPopup :FC<SortPopupProps> = ({items}) => {
                 </svg>
                 <div onClick={toggleVisiblePopUp}>
                     <b>Sort by : </b>
-                    <span >{activeLabel}</span>
+                    <span >{activeLabel.type}</span>
                 </div>
 
             </div>

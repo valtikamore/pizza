@@ -18,7 +18,7 @@ import { Link } from "react-router-dom";
                     </div>
                 </Link>
                 <Link to='/Cart'>
-                    <div className="header__cart">5TG
+                    <div className="header__cart">
                         <Button className='button--cart'>
                             <span>4$</span>
                             <div className="button__delimiter"> </div>

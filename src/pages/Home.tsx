@@ -23,14 +23,20 @@ type Props = {
             <div className="content__top">
                 <Categories
                     items={
-                        [{title: 'Meat', id: v1()},
+                        [
+                            {title: 'Meat', id: v1()},
                             {title: 'Vegetarian', id: v1()},
                             {title: 'Grill', id: v1()},
                             {title: 'Spicy', id: v1()},
-                            {title: 'Closed', id: v1()},]
+                            {title: 'Closed', id: v1()},
+                        ]
                     }/>
                 <SortPopup  items={
-                    ['Popular','Price','Alphabet']
+                    [
+                        {name:'Popular',type:'popular'},
+                        {name:'Price',type:'price'},
+                        {name:'Alphabet',type:'alphabet'}
+                        ]
                 }/>
             </div>
             <h2 className="content__title">Все пиццы</h2>
