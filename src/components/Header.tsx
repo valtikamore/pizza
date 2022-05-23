@@ -1,23 +1,21 @@
 
 import React from "react";
 import Button from "./Button";
-import logoSvg from '../scss/assets/img/pizza-logo.svg'
 import { Link } from "react-router-dom";
 
  function Header () {
     return (
         <div className="header">
             <div className="container">
-                <Link to='/'>
+                {/*<Link to='/'>*/}
                     <div className="header__logo">
-                        <img width="38" src={logoSvg} alt="Pizza logo"/>
                         <div>
                             <h1>React Pizza</h1>
                             <p>The most tasty pizza in the Universe</p>
                         </div>
                     </div>
-                </Link>
-                <Link to='/Cart'>
+                {/*</Link>*/}
+                {/*<Link to='/Cart'>*/}
                     <div className="header__cart">5TG
                         <Button className='button--cart'>
                             <span>4$</span>
@@ -54,7 +52,7 @@ import { Link } from "react-router-dom";
                             <span>3</span>
                         </Button>
                     </div>
-                </Link>
+                {/*</Link>*/}
             </div>
         </div>
         )

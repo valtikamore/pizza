@@ -1,20 +1,13 @@
 import React, {FC, useState} from 'react';
 import classNames from 'classnames'
+import {IPizza} from "../models";
 
 
-export type PizzaBlockPropsType = {
-    key:number
-    imageUrl:string
-    name:string
-    types:number[]
-    sizes:number[]
-    price:number
-    category:number
-    rating:number
+type IProps = IPizza & {
 
 }
 
- const PizzaBlock: FC<PizzaBlockPropsType> = ({name , imageUrl,price,types,sizes}) => {
+ const PizzaBlock: React.FC<IProps> = ({name , imageUrl,price,types,sizes}) => {
     const avaibleTypes = ['Traditional','Thin']
     const avaibleSizes = [26,30,40]
     const [activeType,setActiveType] = useState<number|null>(types[0])

@@ -1,11 +1,13 @@
-import { createStore} from "redux";
+import {compose, createStore} from "redux";
 
 import rootReducer from './reducers'
-const win = window as any
 
-const store = createStore(
-    rootReducer ,
-    win.__REDUX_DEVTOOLS_EXTENSION__ && win.__REDUX_DEVTOOLS_EXTENSION__(),
-    )
-win.store = store
+const store = createStore(rootReducer)
+
+declare global {
+    interface Window {
+        __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+    }
+}
+
 export default store

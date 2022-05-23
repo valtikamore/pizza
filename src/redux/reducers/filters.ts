@@ -8,6 +8,7 @@ const initialState:initialStateType =  {
     categori:0,
     sortBy : 'popular'
 }
+
 const filters = (state = initialState,action : any) => {
     if(action.type === 'SET_SORT_BY') {
         return {

@@ -12,8 +12,11 @@ type SortPopupProps = {
 const SortPopup :FC<SortPopupProps> = ({items}) => {
     const [visiblePopup, setVisiblePopup] = useState<boolean>(false);
     const [activeItem, setActiveItem] = useState<number >(1);
+
     const sortReference = useRef<HTMLDivElement>(null)
+
     const activeLabel = items[activeItem]
+
     const toggleVisiblePopUp = () => {setVisiblePopup(!visiblePopup)}
 
     const handleOutsideClick = (e:any) => {
@@ -21,19 +24,22 @@ const SortPopup :FC<SortPopupProps> = ({items}) => {
             setVisiblePopup(false)
         }
     }
-    useEffect(() => {
-       document.body.addEventListener('click', handleOutsideClick)
-    }, []);
+
     const onSelectPopupItem = (index:number) => {
         setActiveItem(index)
         setVisiblePopup(false)
     }
+
     const mapPopupItems = items.map((i,index) => {
        return  <li key={index}
             className={activeItem === index ? 'active' : ''}
             onClick={() => onSelectPopupItem(index)}
         >{i.name}</li>
     })
+
+    useEffect(() => {
+        document.body.addEventListener('click', handleOutsideClick)
+    }, []);
 
     return (
         <div className="sort"

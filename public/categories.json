@@ -1,0 +1,24 @@
+{
+  "categories": [
+    {
+      "title": "Meat",
+      "id": 1
+    },
+    {
+      "title": "Vegetarian",
+      "id": 2
+    },
+    {
+      "title": "Grill",
+      "id": 3
+    },
+    {
+      "title": "Spicy",
+      "id": 4
+    },
+    {
+      "title": "Closed",
+      "id": 5
+    }
+  ]
+}

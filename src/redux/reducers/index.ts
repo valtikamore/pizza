@@ -6,4 +6,7 @@ const rootReducer = combineReducers({
     filters :filtersReducer,
     pizzas :pizzasReducer ,
 })
+
 export default rootReducer
+
+export type RootReducer = ReturnType<typeof rootReducer>;

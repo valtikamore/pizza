@@ -1,6 +1,8 @@
+import {IPizza} from "../../models";
+
 type initialStateType = {
-   items:[]
-    isLoaded:boolean
+   items:[] | IPizza[]
+   isLoaded:boolean
 }
 
 const initialState:initialStateType =  {
