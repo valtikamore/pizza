@@ -1,7 +1,14 @@
 import { IPizza } from "../../models";
 
+export const requestPizzas = () => ({
+    type:'PIZZAS/REQUEST_PIZZAS',
+})
+
 export const setPizzas = (items:IPizza[]) => ({
-    type:'SET_PIZZAS',
+    type:'PIZZAS/SET_PIZZAS',
     payload:items
 })
 
+export const setPizzasFailure = () => ({
+    type:'PIZZAS/SET_PIZZAS_FAILURE',
+})

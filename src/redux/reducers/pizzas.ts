@@ -3,20 +3,38 @@ import {IPizza} from "../../models";
 type initialStateType = {
    items:[] | IPizza[]
    isLoaded:boolean
+   error: string
 }
 
 const initialState:initialStateType =  {
     items:[],
-    isLoaded:false
+    isLoaded:false,
+    error: ''
 }
 const pizzas = (state = initialState,action : any) => {
-    if(action.type === 'SET_PIZZAS') {
-        return {
-            ...state,
-            items: action.payload,
-        }
+    switch (action.type) {
+        case 'PIZZAS/SET_PIZZAS':
+            return {
+                ...state,
+                items: action.payload,
+                isLoaded: true,
+                error: ''
+            }
+        case 'PIZZAS/REQUEST_PIZZAS' :
+            return {
+                ...state,
+                isLoaded: true,
+                error: ''
+            }
+
+        case 'PIZZAS/SET_PIZZAS_FAILURE':
+            return {
+                ...state,
+                isLoaded: false,
+                error: 'Loading error'
+            }
+        default: return state
     }
-    return state
 }
 
 export default pizzas

@@ -1,9 +1,9 @@
 import { ICategory } from "models";
-import axios from "services/axios";
+import {localInstance} from "services/axios";
 
 
 const endpoints = {
-    getCategories: () => axios.get<{pizzas:ICategory[]}>('/categories.json'),
-};
+    getCategories: () => localInstance.get<{ categories: ICategory[] }>('/categories.json'),
+}
 
 export default endpoints;

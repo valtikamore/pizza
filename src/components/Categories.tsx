@@ -1,26 +1,31 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import classNames from "classnames";
-import {ICategory} from "../models";
-import {allEndpoints} from "../services";
+import { useDispatch, useSelector} from "react-redux";
+
+import {allEndpoints} from "services";
+
+import {fetchCategories, setSCategory} from "redux/actions/filters";
+import {RootReducer} from "redux/reducers";
 
 
-const Categories = () => {
-    const [activeItem, setActiveItem] = useState<number|null>(null);
-    const [categories, setCategories] = useState<ICategory[] | []>([])
+export const Categories = () => {
+    const {categories, category} = useSelector((state: RootReducer) => state.filters)
 
-    const onSelectItem = (index:number|null) => () => setActiveItem(index)
+    const onSelectItem = (index:number|null) => () => dispatch(setSCategory(index))
+
+    const dispatch = useDispatch()
 
     useEffect(() => {
         allEndpoints.categories.getCategories().then(({data}) => {
-            //@ts-ignore
-            setCategories(data.categories)
+            dispatch(fetchCategories(data.categories))
         })
     },[])
+
 
     const pizzaCategoriesMap = categories?.map((p,index) => {
        return <li
            className={classNames('', {
-               'active' : activeItem === index
+               'active' : category === index
            })}
            key={p.id}
            onClick={onSelectItem(index)}>{p.title}</li>
@@ -31,7 +36,7 @@ const Categories = () => {
             <ul>
                 <li
                     className={classNames('', {
-                            'active' : activeItem === null
+                            'active' : category === null
                         })}
                     onClick={onSelectItem(null)}>All</li>
                 {pizzaCategoriesMap}
@@ -39,5 +44,3 @@ const Categories = () => {
         </div>
     );
 };
-
-export default Categories

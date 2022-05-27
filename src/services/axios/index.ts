@@ -1,7 +1,9 @@
 import axios from "axios";
 
-const axiosInstance = axios.create({
-    baseURL: "http://localhost:3000",
+export const pizzaInstance = axios.create({
+    baseURL: "https://628c8e3aa3fd714fd03467e7.mockapi.io",
 });
 
-export default axiosInstance
+export const localInstance = axios.create({
+    baseURL: "http://localhost:3000",
+});

@@ -1,69 +1,74 @@
-
 import React from 'react';
-import {FC, useEffect, useRef, useState} from "react";
+import {FC, useState} from "react";
+import {useDispatch} from "react-redux";
+
+import {setSortBy} from "../redux/actions/filters";
+
+import {useOutBoardingClick} from "../hooks/useOutboadringClick";
+
+import {Image} from 'components'
+
+import {sortNames} from "../utils/constants";
 
 type sortItems = {
     name:string
     type?:string
 }
+
 type SortPopupProps = {
     items:sortItems[]
+    onSortChange: () => void
+    sortMethod: string
 };
-const SortPopup :FC<SortPopupProps> = ({items}) => {
+
+export const SortPopup :FC<SortPopupProps> = ({items,sortMethod,onSortChange}) => {
+    const dispatch = useDispatch()
+
     const [visiblePopup, setVisiblePopup] = useState<boolean>(false);
     const [activeItem, setActiveItem] = useState<number >(1);
+    const {ref} = useOutBoardingClick(() => setVisiblePopup(false))
 
-    const sortReference = useRef<HTMLDivElement>(null)
 
     const activeLabel = items[activeItem]
 
-    const toggleVisiblePopUp = () => {setVisiblePopup(!visiblePopup)}
+    const toggleVisiblePopUp = () => setVisiblePopup(!visiblePopup)
 
-    const handleOutsideClick = (e:any) => {
-        if(!e.path.includes(sortReference.current)) {
-            setVisiblePopup(false)
-        }
-    }
-
-    const onSelectPopupItem = (index:number) => {
+    const onSelectPopupItem = (index:number, type: string) => {
         setActiveItem(index)
         setVisiblePopup(false)
+        dispatch(setSortBy(type))
     }
 
-    const mapPopupItems = items.map((i,index) => {
-       return  <li key={index}
+    const mapPopupItems = items?.map((i,index) => {
+       return (
+           <li
+            key={index}
             className={activeItem === index ? 'active' : ''}
-            onClick={() => onSelectPopupItem(index)}
-        >{i.name}</li>
+            onClick={() => onSelectPopupItem(index, i.type)}
+           >
+               {i.name}
+           </li>
+       )
     })
 
-    useEffect(() => {
-        document.body.addEventListener('click', handleOutsideClick)
-    }, []);
-
     return (
-        <div className="sort"
-             ref={sortReference}>
+        <div className="sort" ref={ref}>
             <div className="sort__label">
-                <svg className={visiblePopup ? 'rotated' : ''}
-                    width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10 5C10 5.16927 9.93815 5.31576 9.81445 5.43945C9.69075 5.56315 9.54427 5.625 9.375 5.625H.625C0.455729 5.625 0.309245 5.56315 0.185547 5.43945C0.061849 5.31576 0 5.16927 0 5C0 4.83073 0.061849 4.68424 0.185547 4.56055L4.56055 0.185547C4.68424 0.061849 4.83073 0 5 0C5.16927 0 5.31576 0.061849 5.43945 0.185547L9.81445 4.56055C9.93815 4.68424 10 4.83073 10 5Z"
-                        fill="#2C2C2C"/>
-                </svg>
+                <Image type={'arrow'} className={visiblePopup ? 'rotated' : ''}/>
                 <div onClick={toggleVisiblePopUp}>
-                    <b>Sort by : </b>
-                    <span >{activeLabel.type}</span>
+                    <span> sort by: <span>{activeLabel.type}</span></span>
                 </div>
-
             </div>
-            {visiblePopup && <div className="sort__popup">
-                <ul>
-                    {items && mapPopupItems}
-                </ul>
-            </div>}
+            <div onClick={onSortChange}>
+                sorting by {sortMethod === sortNames.asc ? 'Ascending' : 'Des'}
+            </div>
+            {visiblePopup && (
+                <div className="sort__popup">
+                    <ul>{mapPopupItems}</ul>
+                </div>
+            )}
         </div>
     );
 };
-export default SortPopup
 
 

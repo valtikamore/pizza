@@ -1,7 +1,7 @@
+export {Button} from './Button'
+export {Header} from './Header'
+export {Categories} from './Categories'
+export {SortPopup} from './SortPopup'
+export {PizzaCard , Skeleton} from './PizzaCard'
 
-
-export {default as Button} from './Button'
-export {default as Header} from './Header'
-export {default as Categories} from './Categories'
-export {default as SortPopup} from './SortPopup'
-export {default as PizzaBlock} from './PizzaBlock'
+export {Image} from './Image'

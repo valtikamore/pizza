@@ -1,11 +1,14 @@
-
-
-export const setSortBy = (name:string) => ({
-    type:'SET_SORT_BY',
-    payload:name
+export const setSortBy = (type:string) => ({
+    type:'FILTERS/SET_SORT_BY',
+    payload: type
 })
 
 export const setSCategory = (catIndex:number) => ({
-    type:'SET_CATEGORY',
-    payload:catIndex
+    type:'FILTERS/SET_CATEGORY',
+    payload: catIndex
+})
+
+export const fetchCategories = (items:any) => ({
+    type: 'FILTERS/SET_CATEGORIES',
+    payload: items
 })

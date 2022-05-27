@@ -1,14 +1,11 @@
-import React, { FC } from 'react';
+import React from 'react';
 
-type Props = {
-
-};
- const Cart: FC<Props> = ({}) => {
+const Cart = () => {
     return (
         <div>
             <h1>Cart</h1>
         </div>
     );
 };
- export default Cart
 
+export default Cart

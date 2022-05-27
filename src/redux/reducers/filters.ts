@@ -1,28 +1,34 @@
-
 type initialStateType = {
-    categori:number
+    category:number | null
     sortBy:string
+    categories: []
 }
 
 const initialState:initialStateType =  {
-    categori:0,
-    sortBy : 'popular'
+    category: null ,
+    sortBy : 'price',
+    categories: []
 }
 
 const filters = (state = initialState,action : any) => {
-    if(action.type === 'SET_SORT_BY') {
-        return {
-            ...state,
-            sortBy: action.payload
-        }
+    switch (action.type) {
+        case 'FILTERS/SET_SORT_BY':
+            return {
+                ...state,
+                sortBy: action.payload
+            }
+        case 'FILTERS/SET_CATEGORY':
+            return {
+                ...state,
+                category: action.payload
+            }
+        case 'FILTERS/SET_CATEGORIES' :
+            return {
+                ...state,
+                categories: action.payload
+            }
+        default: return state
     }
-    if(action.type === 'SET_CATEGORY') {
-        return {
-            ...state,
-            categori: action.payload
-        }
-    }
-    return state
 }
 
 export default filters
