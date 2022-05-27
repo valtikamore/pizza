@@ -8,7 +8,6 @@ interface IProps {
 }
 export const Pagination:React.FC<IProps> = ({onPageChange}) => {
  return (
-
 <ReactPaginate
     className={styles.pagination}
     breakLabel={'...'}
@@ -18,6 +17,5 @@ export const Pagination:React.FC<IProps> = ({onPageChange}) => {
     pageCount={3}
     renderOnZeroPageCount={null}
     onPageChange={(e) => onPageChange(e)}
-/>
- );
+/>);
 };

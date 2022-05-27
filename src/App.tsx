@@ -17,10 +17,15 @@ export const App = () => {
                 <div className="content">
                     <Routes>
                         <Route path={'/'} element={
-                            <Suspense fallback={<h1>loading</h1>}>
+                            <Suspense>
                                 <Home/>
-                            </Suspense>}/>
-                        <Route path={'/card'} element={<Cart/>}/>
+                            </Suspense>
+                        }/>
+                        <Route path={'/card'} element={
+                            <Suspense >
+                                <Cart/>
+                            </Suspense>
+                        }/>
                         <Route path={'*'} element={<div>not</div>}/>
                     </Routes>
                 </div>

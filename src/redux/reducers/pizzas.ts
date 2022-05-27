@@ -16,8 +16,8 @@ const pizzas = (state = initialState,action : any) => {
         case 'PIZZAS/SET_PIZZAS':
             return {
                 ...state,
-                items: action.payload,
-                isLoaded: true,
+                items: [...state.items, ...action.payload],
+                isLoaded: false,
                 error: ''
             }
         case 'PIZZAS/REQUEST_PIZZAS' :

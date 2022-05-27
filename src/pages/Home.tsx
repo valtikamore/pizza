@@ -1,17 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 
 import {RootReducer} from "redux/reducers";
 import {requestPizzas, setPizzas, setPizzasFailure} from "redux/actions/pizzas";
 
 import {Categories, PizzaCard, Skeleton, SortPopup} from "components";
-import {useAppContext} from "hooks";
+import {useAppContext, useInfinityScroll} from "hooks";
 
 import {allEndpoints} from "services";
 import {sortNames, sortValues} from "utils/constants";
-
-import {Pagination} from "../components/Pagination";
-
 
 interface IProps {
 
@@ -20,13 +17,12 @@ interface IProps {
 const Home:React.FC<IProps> = () => {
     const dispatch = useDispatch()
     const {searchPizzaValue} = useAppContext()
+    const {loader,page} = useInfinityScroll()
 
     const {items,error,isLoaded} = useSelector((state:RootReducer) => state.pizzas)
     const {category, sortBy} = useSelector((state:RootReducer) => state.filters)
     const [sortMethod, setSortMethod] = useState(sortNames.des);
-    const [page,setPage] = useState(1)
 
-    const onPageChange = (e:any) => setPage(e.selected + 1)
 
     const onSortChange = () =>  {
         if(sortMethod === sortNames.des) setSortMethod(sortNames.asc)
@@ -34,15 +30,15 @@ const Home:React.FC<IProps> = () => {
     }
 
     useEffect(()=> {
-        dispatch(requestPizzas())
             allEndpoints.pizzas.getPizzas({category, sortBy, sortMethod,searchPizzaValue, page})
                 .then(({data}) => {
+                    // dispatch(requestPizzas())
                     dispatch(setPizzas(data))
+                    // dispatch(requestPizzas())
                 })
                 .catch( (_) => {
                     dispatch(setPizzasFailure())
                 })
-
     },[category,sortBy,sortMethod,searchPizzaValue,page])
 
     const pizzas = items.map((obj) => <PizzaCard key={obj.id} {...obj} />);
@@ -60,13 +56,10 @@ const Home:React.FC<IProps> = () => {
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
-                {!isLoaded ? skeletons : pizzas}
+                {isLoaded ? pizzas : skeletons}
                 {error}
             </div>
-            <div style={{display:'flex', justifyContent: 'center'}}>
-                <Pagination onPageChange={onPageChange}/>
-            </div>
-
+            <div ref={loader} />
         </div>
     );
 };
